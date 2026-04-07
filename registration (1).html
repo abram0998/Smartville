@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seller Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f7f2;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2b6b2b;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .checkbox-group {
+      margin-top: 10px;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+      font-weight: normal;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #2b6b2b;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #245924;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Seller Registration Form</h2>
+    <form>
+      <label>Full Name</label>
+      <input type="text" required />
+      
+      <label>Phone Number</label>
+      <input type="tel" required />
+
+      <label>Email Address (optional)</label>
+      <input type="email" />
+
+      <label>National ID / Farmer ID Number</label>
+      <input type="text" />
+
+      <label>Business / Farm Name</label>
+      <input type="text" />
+
+      <label>Type of Seller</label>
+      <select>
+        <option>Farmer</option>
+        <option>Aggregator</option>
+        <option>Agro-Dealer</option>
+        <option>Other</option>
+      </select>
+
+      <label>District</label>
+      <input type="text" />
+
+      <label>Subcounty / Town</label>
+      <input type="text" />
+
+      <label>Village</label>
+      <input type="text" />
+
+      <label>Products You Sell</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" /> Grains</label>
+        <label><input type="checkbox" /> Fruits</label>
+        <label><input type="checkbox" /> Vegetables</label>
+        <label><input type="checkbox" /> Livestock</label>
+        <label><input type="checkbox" /> Dairy</label>
+        <label><input type="checkbox" /> Seeds / Inputs</label>
+        <label><input type="checkbox" /> Other</label>
+      </div>
+
+      <label>Average Monthly Supply (optional)</label>
+      <input type="text" />
+
+      <label>Farm Size (acres/hectares)</label>
+      <input type="text" />
+
+      <label>Preferred Payment Method</label>
+      <select>
+        <option>Mobile Money</option>
+        <option>Bank</option>
+        <option>Cash</option>
+      </select>
+
+      <label>Mobile Money Number / Bank Account</label>
+      <input type="text" />
+
+      <label>Create Password</label>
+      <input type="password" required />
+
+      <label>Confirm Password</label>
+      <input type="password" required />
+
+      <div class="checkbox-group">
+        <label><input type="checkbox" required /> I confirm that the information provided is accurate.</label>
+        <label><input type="checkbox" required /> I agree to the Terms & Conditions.</label>
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Directory - Crops & Locations</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f6f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #3a7a3f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    /* Search bar */
+    .search-box {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-box select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Seller grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .seller-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .seller-card h3 {
+      margin-top: 0;
+      color: #2f5f32;
+    }
+
+    .seller-card p {
+      margin: 6px 0;
+      color: #444;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #d0ecd0;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      margin-right: 5px;
+      margin-top: 5px;
+    }
+    nav{
+    background:#222;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#4CAF50;
+}
+  </style>
+</head>
+
+<body>
+
+<header>🌾 Farmer & Seller Directory</header>
+<nav>
+    <a href="main.html">Home</a>
+    <a href="crops.html">Crops</a>
+    <a href="livestock.html">Livestock</a>
+    <a href="weather.html">Weather</a>
+    <a href="trade.html">Trading</a>
+    <a href="ai.html">AI Guide</a>
+    <a href="registration.html">Seller Sign Up</a>
+    <a href="log in.html">Log In</a>
+</nav>
+
+<div class="container">
+
+  <!-- Search & Filter -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search sellers by name or crop...">
+    <select id="locationFilter">
+      <option value="all">All Locations</option>
+      <option value="Nairobi">Nairobi</option>
+      <option value="Kisumu">Kisumu</option>
+      <option value="Mombasa">Mombasa</option>
+      <option value="Eldoret">Eldoret</option>
+      <option value="Nakuru">Nakuru</option>
+    </select>
+
+    <select id="cropFilter">
+      <option value="all">All Crops</option>
+      <option value="Tomatoes">Tomatoes</option>
+      <option value="Maize">Maize</option>
+      <option value="Carrots">Carrots</option>
+      <option value="Spinach">Spinach</option>
+      <option value="Wheat">Wheat</option>
+    </select>
+  </div>
+
+  <!-- Seller List -->
+  <div class="grid" id="sellerGrid"></div>
+
+</div>
+
+<script>
+  const sellers = [
+    {name: "Green Valley Farms", phone: "+254 676767677", crops: ["Tomatoes", "Spinach", "Onions"], location: "Nairobi"},
+    {name: "Sunrise Growers", phone: "+254 723 998877", crops: ["Maize", "Wheat"], location: "Eldoret"},
+    {name: "Fresh Harvest Ltd", phone: "+254 731 667788", crops: ["Carrots", "Cabbage", "Potatoes"], location: "Nakuru"},
+    {name: "Coastal Organic Foods", phone: "+254 745 223344", crops: ["Mangoes", "Bananas"], location: "Mombasa"},
+    {name: "Lakeside Famers", phone: "+254 762 441122", crops: ["Tomatoes", "Maize"], location: "Kisumu"},
+    {name: "AgriGrowth Hub", phone: "+254 711 222333", crops: ["Spinach", "Herbs"], location: "Nairobi"},
+    {name: "FarmFresh Depot", phone: "+254 799 113355", crops: ["Wheat", "Barley"], location: "Eldoret"},
+    {name: "UrbanSprout Gardens", phone: "+254 780 333221", crops: ["Lettuce", "Tomatoes"], location: "Nairobi"},
+  ];
+
+  const grid = document.getElementById("sellerGrid");
+  const searchInput = document.getElementById("searchInput");
+  const locationFilter = document.getElementById("locationFilter");
+  const cropFilter = document.getElementById("cropFilter");
+
+  // Render sellers
+  function displaySellers(list) {
+    grid.innerHTML = "";
+    list.forEach(s => {
+      grid.innerHTML += `
+        <div class="seller-card">
+          <h3>${s.name}</h3>
+          <p><strong>📍 Location:</strong> ${s.location}</p>
+          <p><strong>📞 Contact:</strong> ${s.phone}</p>
+          <p><strong>🌾 Crops:</strong></p>
+          ${s.crops.map(c => `<span class="tag">${c}</span>`).join("")}
+        </div>
+      `;
+    });
+  }
+
+  // Filter function
+  function filterSellers() {
+    const search = searchInput.value.toLowerCase();
+    const loc = locationFilter.value;
+    const crop = cropFilter.value;
+
+    const filtered = sellers.filter(s => {
+      const matchNameOrCrop =
+        s.name.toLowerCase().includes(search) ||
+        s.crops.some(c => c.toLowerCase().includes(search));
+
+      const matchLocation = loc === "all" || s.location === loc;
+      const matchCrop = crop === "all" || s.crops.includes(crop);
+
+      return matchNameOrCrop && matchLocation && matchCrop;
+    });
+
+    displaySellers(filtered);
+  }
+
+  // Event listeners
+  searchInput.addEventListener("input", filterSellers);
+  locationFilter.addEventListener("change", filterSellers);
+  cropFilter.addEventListener("change", filterSellers);
+
+  // Initial load
+  displaySellers(sellers);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EasyTrade Hygiene Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+    color:#333;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url('OIP (3).webp');
+    background-size:cover;
+    background-position:center;
+    height:75vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero h1{
+    font-size:3rem;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:1.2rem;
+}
+
+/* NAV */
+nav{
+    background:#0277bd;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+}
+
+nav a:hover{
+    color:#b3e5fc;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:80px 0;
+}
+
+/* TITLE */
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    color:#0277bd;
+    font-size:2rem;
+}
+
+/* CATEGORIES */
+.categories{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:25px;
+}
+
+.category{
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.category:hover{
+    transform:translateY(-8px);
+}
+
+.category h4{
+    margin-top:10px;
+}
+
+/* PRODUCTS */
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.product{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.product:hover{
+    transform:translateY(-10px);
+}
+
+.product img{
+    width:100%;
+    border-radius:10px;
+}
+
+.product h3{
+    margin:10px 0;
+}
+
+.price{
+    color:#0277bd;
+    font-weight:bold;
+}
+
+.buy-btn{
+    margin-top:10px;
+    display:block;
+    text-align:center;
+    padding:10px;
+    background:#0277bd;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+/* FOOTER */
+footer{
+    background:#01579b;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+    #cartToggle{
+      background:none;
+      border:2px solid rgba(255,255,255,0.3);
+      padding:8px 14px;
+      border-radius:10px;
+      color:white;
+      cursor:pointer;
+      position:relative;
+    }
+    #cartCount{
+      position:absolute;
+      top:-6px;
+      right:-6px;
+      background:#ff5b5b;
+      padding:2px 6px;
+      border-radius:12px;
+      font-size:13px;
+      display:none;
+    }
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Smartville Hygiene Store</h1>
+    <p>Clean Living Starts Here – Trusted Hygiene Products for Every Home</p>
+</section>
+
+<!-- NAV -->
+<nav>
+    <a href="broad marketplace.html">Home</a>
+    <a href="#">Soaps</a>
+    <a href="#">Sanitizers</a>
+    <a href="#">Toiletries</a>
+    <a href="#">Baby Care</a>
+    <a href="#">Cleaning Supplies</a>
+     <button id="cartToggle">Cart <span id="cartCount">0</span></button>
+</nav>
+
+<!-- CATEGORIES -->
+<div class="container">
+    <div class="section-title">
+        <h2>Categories</h2>
+    </div>
+
+    <div class="categories">
+        <div class="category">🧼<h4>Soaps</h4></div>
+        <div class="category">🧴<h4>Sanitizers</h4></div>
+        <div class="category">🪥<h4>Toiletries</h4></div>
+        <div class="category">👶<h4>Baby Care</h4></div>
+        <div class="category">🧽<h4>Cleaning</h4></div>
+    </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="container">
+    <div class="section-title">
+        <h2>Popular Products</h2>
+    </div>
+
+    <div class="products">
+        <div class="product">
+            <img src="nisha-anti-bacteria-soap-500x500.webp">
+            <h3>Antibacterial Soap</h3>
+            <p class="price">UGX 2,500</p>
+           <button class="buy-btn" onclick="addToCart('Antibacterial Soap', 2500)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="GUEST_4960aac4-32e8-4240-a030-070a7a47f057.avif">
+            <h3>Hand Sanitizer (500ml)</h3>
+            <p class="price">UGX 5,000</p>
+            <button class="buy-btn" onclick="addToCart('Hand Sanitizer', 5000)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="RESTORE_1.webp">
+            <h3>Toothpaste</h3>
+            <p class="price">UGX 3,000</p>
+            <button class="buy-btn" onclick="addToCart('Toothpaste', 3000)">Add to Cart</button>
+        </div>
+
+        <div class="product">
+            <img src="Littleangelspure.webp">
+            <h3>Baby Wipes</h3>
+            <p class="price">UGX 6,500</p>
+            <button class="buy-btn" onclick="addToCart('Baby Wipes', 6500)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<div id="cartBox" style="
+position:fixed;
+right:20px;
+bottom:20px;
+background:white;
+padding:20px;
+width:300px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+border-radius:15px;
+display:none;
+z-index:999;
+">
+
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+
+<p><strong>Total: </strong><span id="cartTotal">UGX 0</span></p>
+<h4>Select Payment Method</h4>
+
+<select id="paymentMethod" style="width:100%; padding:8px; margin-top:10px;">
+    <option value="">-- Choose Method --</option>
+    <option value="mtn">MTN Mobile Money</option>
+    <option value="airtel">Airtel Money</option>
+    <option value="cod">Cash on Delivery</option>
+</select>
+
+<input type="text" id="phoneNumber" placeholder="Enter phone number"
+style="width:100%; padding:8px; margin-top:10px; display:none;">
+
+<button onclick="checkout()" style="
+margin-top:15px;
+width:100%;
+padding:10px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+">
+Checkout
+</button>
+
+<button onclick="clearCart()" style="margin-top:10px;">Clear</button>
+</div>
+<footer>
+    © 2026 Smartville Hygiene Store
+</footer>
+<script>
+let cart = [];
+
+const cartBox = document.getElementById("cartBox");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const cartCount = document.getElementById("cartCount");
+
+// ADD TO CART
+function addToCart(name, price){
+    let item = cart.find(p => p.name === name);
+
+    if(item){
+        item.qty++;
+    } else {
+        cart.push({name, price, qty:1});
+    }
+
+    updateCart();
+}
+
+// UPDATE CART UI
+function updateCart(){
+    cartItems.innerHTML = "";
+    let total = 0;
+    let count = 0;
+
+    cart.forEach(item => {
+        total += item.price * item.qty;
+        count += item.qty;
+
+        cartItems.innerHTML += `
+        <div style="margin-bottom:10px;">
+            <strong>${item.name}</strong><br>
+            ${item.qty} x UGX ${item.price.toLocaleString()}
+        </div>`;
+    });
+
+    cartTotal.textContent = "UGX " + total.toLocaleString();
+    cartCount.textContent = count;
+    cartCount.style.display = count > 0 ? "inline-block" : "none";
+}
+
+// CLEAR CART
+function clearCart(){
+    cart = [];
+    updateCart();
+}
+
+// TOGGLE CART
+document.getElementById("cartToggle").onclick = () => {
+    cartBox.style.display = cartBox.style.display === "none" ? "block" : "none";
+};
+const paymentMethod = document.getElementById("paymentMethod");
+const phoneInput = document.getElementById("phoneNumber");
+
+// Show phone input for mobile money
+paymentMethod.addEventListener("change", () => {
+    if(paymentMethod.value === "mtn" || paymentMethod.value === "airtel"){
+        phoneInput.style.display = "block";
+    } else {
+        phoneInput.style.display = "none";
+    }
+});
+
+// CHECKOUT FUNCTION
+function checkout(){
+    if(cart.length === 0){
+        alert("Your cart is empty!");
+        return;
+    }
+
+    let method = paymentMethod.value;
+
+    if(method === ""){
+        alert("Please select a payment method");
+        return;
+    }
+
+    if((method === "mtn" || method === "airtel") && phoneInput.value === ""){
+        alert("Enter your phone number");
+        return;
+    }
+
+    // SIMULATED PAYMENT MESSAGE
+    if(method === "mtn"){
+        alert("MTN MoMo prompt sent to " + phoneInput.value);
+    } else if(method === "airtel"){
+        alert("Airtel Money prompt sent to " + phoneInput.value);
+    } else {
+        alert("Order placed! Pay on delivery.");
+    }
+
+    clearCart();
+}
+</script>
+
+</body>
+</html>

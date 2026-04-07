@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smartville Health Access</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+    color:#333;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url('OIP\ \(12\).jpg');
+    background-size:cover;                                            
+    background-position:center;
+    height:75vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero h1{
+    font-size:3rem;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:1.2rem;
+}
+
+/* NAV */
+nav{
+    background:#2e7d32;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+}
+
+nav a:hover{
+    color:#c8e6c9;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:80px 0;
+}
+
+/* TITLE */
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    color:#2e7d32;
+    font-size:2rem;
+}
+
+/* CATEGORIES */
+.categories{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:25px;
+}
+
+.category{
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.category:hover{
+    transform:translateY(-8px);
+}
+
+/* SERVICES */
+.services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.service{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.service:hover{
+    transform:translateY(-10px);
+}
+
+.service img{
+    width:100%;
+    border-radius:10px;
+}
+
+.service h3{
+    margin:10px 0;
+}
+
+.find-btn{
+    margin-top:10px;
+    display:block;
+    text-align:center;
+    padding:10px;
+    background:#2e7d32;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+/* DISCLAIMER */
+.disclaimer{
+    background:#ffebee;
+    color:#c62828;
+    padding:20px;
+    text-align:center;
+    margin:40px;
+    border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+    background:#1b5e20;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Smartville Health Access</h1>
+    <p>Find Trusted Clinics & Medical Services Near You</p>
+</section>
+
+<!-- NAV -->
+<nav>
+    <a href="broad marketplace.html">Home</a>
+    <a href="pharmacy.html">Pharmacy</a>
+    <a href="dental.html">Dental</a>
+    <a href="pdriatrics.html">Pediatrics</a>
+    <a href="clinics.html">Clinics</a>
+    <a href="emergency.html">Emergency</a>
+</nav>
+
+<!-- CATEGORIES -->
+<div class="container">
+    <div class="section-title">
+        <h2>Health Services</h2>
+    </div>
+
+    <div class="categories">
+        <div class="category">💊<h4>Pharmacy</h4></div>
+        <div class="category">🦷<h4>Dental Care</h4></div>
+        <div class="category">👶<h4>Pediatrics</h4></div>
+        <div class="category">🩺<h4>General Clinics</h4></div>
+        <div class="category">🚑<h4>Emergency</h4></div>
+    </div>
+</div>
+
+<!-- SERVICES -->
+<div class="container">
+    <div class="section-title">
+        <h2>Find Treatment</h2>
+    </div>
+
+    <div class="services">
+        
+        <div class="service">
+            <img src="nisha-anti-bacteria-soap-500x500.webp">
+            <h3>Infection Treatment</h3>
+            <p>Get help for infections and skin conditions</p>
+            <button class="find-btn" onclick="findHospitals('pharmacy or clinic near me')">
+                Find Nearby Clinic
+            </button>
+        </div>
+
+        <div class="service">
+            <img src="GUEST_4960aac4-32e8-4240-a030-070a7a47f057.avif">
+            <h3>Sanitation & Prevention</h3>
+            <p>Access hygiene and prevention services</p>
+            <button class="find-btn" onclick="findHospitals('pharmacy near me')">
+                Find Pharmacy
+            </button>
+        </div>
+
+        <div class="service">
+            <img src="RESTORE_1.webp">
+            <h3>Dental Care</h3>
+            <p>Tooth and oral health services</p>
+            <button class="find-btn" onclick="findHospitals('dental clinic near me')">
+                Find Dentist
+            </button>
+        </div>
+
+        <div class="service">
+            <img src="Littleangelspure.webp">
+            <h3>Child Health Services</h3>
+            <p>Pediatric care for infants and children</p>
+            <button class="find-btn" onclick="findHospitals('pediatric clinic near me')">
+                Find Pediatric Clinic
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+    ⚠️ Always consult a qualified medical professional before taking any medication.
+</div>
+
+<footer>
+    © 2026 Smartville Health Access Platform
+</footer>
+
+<script>
+// FUNCTION TO OPEN GOOGLE MAPS WITH USER LOCATION
+function findHospitals(query){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(position => {
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+
+            let url = `https://www.google.com/maps/search/${encodeURIComponent(query)}/@${lat},${lng},15z`;
+
+            window.open(url, "_blank");
+        });
+    } else {
+        alert("Location access is required to find nearby health centers.");
+    }
+}
+</script>
+
+</body>
+</html>

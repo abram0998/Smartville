@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smartville Jobify</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+    color:#333;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('OIP (3).webp');
+    background-size:cover;
+    height:60vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    color:white;
+}
+
+/* NAV */
+nav{
+    background:#2e7d32;
+    padding:15px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    margin:10px;
+    text-decoration:none;
+}
+
+/* SEARCH */
+.search-box{
+    width:90%;
+    max-width:900px;
+    margin:20px auto;
+    display:flex;
+    gap:10px;
+}
+
+.search-box input, .search-box select{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    flex:1;
+}
+
+/* JOBS */
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:30px 0;
+}
+
+.jobs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.job{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.stars{
+    color:gold;
+    margin:10px 0;
+}
+
+/* BUTTON */
+.btn{
+    display:block;
+    text-align:center;
+    padding:10px;
+    background:#2e7d32;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+/* HIRING MODAL */
+#hireBox{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    background:white;
+    padding:25px;
+    width:300px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    display:none;
+    z-index:999;
+}
+
+#hireBox h3{
+    margin-bottom:10px;
+}
+
+#overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    top:0;
+    left:0;
+    display:none;
+}
+
+/* FOOTER */
+footer{
+    background:#1b5e20;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+    <h1>Smartville Jobify</h1>
+    <p>Find & Hire Talent Easily</p>
+</section>
+
+<nav>
+    <a href="broad marketplace.html">Home</a>
+</nav>
+
+<!-- SEARCH -->
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search jobs...">
+    <select id="categoryFilter">
+        <option value="all">All</option>
+        <option value="tech">Technology</option>
+        <option value="construction">Construction</option>
+        <option value="cleaning">Cleaning</option>
+    </select>
+</div>
+
+<!-- JOB LIST -->
+<div class="container">
+    <div class="jobs" id="jobList">
+
+        <div class="job" data-category="tech">
+            <h3>Web Developer</h3>
+            <p>Build websites and apps.</p>
+            <div class="stars">★★★★★</div>
+            <button class="btn" onclick="openHire('Web Developer','UGX 150,000','Portfolio: 5 websites built')">Hire</button>
+        </div>
+
+        <div class="job" data-category="construction">
+            <h3>Electrician</h3>
+            <p>Electrical installation & repair.</p>
+            <div class="stars">★★★★☆</div>
+            <button class="btn" onclick="openHire('Electrician','UGX 80,000','Portfolio: 20+ projects')">Hire</button>
+        </div>
+
+        <div class="job" data-category="cleaning">
+            <h3>Cleaner</h3>
+            <p>Home & office cleaning.</p>
+            <div class="stars">★★★☆☆</div>
+            <button class="btn" onclick="openHire('Cleaner','UGX 30,000','Portfolio: 50+ homes cleaned')">Hire</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- HIRE POPUP -->
+<div id="overlay" onclick="closeHire()"></div>
+
+<div id="hireBox">
+    <h3 id="jobTitle"></h3>
+    <p id="portfolio"></p>
+    <p><strong>Payment:</strong> <span id="payment"></span></p>
+
+    <a id="emailLink" class="btn" style="margin-top:10px;">📧 Email</a>
+    <a id="whatsappLink" class="btn" style="margin-top:10px;">📱 WhatsApp</a>
+
+    <button onclick="closeHire()" style="margin-top:10px;">Close</button>
+</div>
+
+<section class="hero">
+    <h1>Smartville Jobify</h1>
+    <p>Explore Available Jobs Near You</p>
+</section>
+
+<nav>
+    <a href="jobify.html">Home</a>
+    <a href="jobify work upload page.html">upload a job</a>
+</nav>
+
+<!-- SEARCH -->
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search jobs...">
+    <select id="categoryFilter">
+        <option value="all">All</option>
+        <option value="farm">Farming</option>
+        <option value="tech">Technology</option>
+        <option value="cleaning">Cleaning</option>
+        <option value="construction">Construction</option>
+    </select>
+</div>
+
+<!-- JOB LIST -->
+<div class="container">
+    <div class="jobs" id="jobList">
+
+        <!-- 12+ SAMPLE JOBS -->
+        <div class="job" data-category="farm">
+            <h3>Farm Manager</h3>
+            <p>Oversee crop production and farm workers.</p>
+            <div class="stars">★★★★☆</div>
+        </div>
+
+        <div class="job" data-category="tech">
+            <h3>Web Developer</h3>
+            <p>Create and maintain websites.</p>
+            <div class="stars">★★★★★</div>
+        </div>
+
+        <div class="job" data-category="cleaning">
+            <h3>House Cleaner</h3>
+            <p>Provide home cleaning services.</p>
+            <div class="stars">★★★☆☆</div>
+        </div>
+
+        <div class="job" data-category="construction">
+            <h3>Bricklayer</h3>
+            <p>Work on building structures.</p>
+            <div class="stars">★★★★☆</div>
+        </div>
+
+        <div class="job" data-category="farm">
+            <h3>Poultry Worker</h3>
+            <p>Manage chickens and egg production.</p>
+            <div class="stars">★★★★☆</div>
+        </div>
+
+        <div class="job" data-category="tech">
+            <h3>App Developer</h3>
+            <p>Build mobile applications.</p>
+            <div class="stars">★★★★★</div>
+        </div>
+
+        <div class="job" data-category="cleaning">
+            <h3>Office Cleaner</h3>
+            <p>Maintain office hygiene.</p>
+            <div class="stars">★★★☆☆</div>
+        </div>
+
+        <div class="job" data-category="construction">
+            <h3>Electrician</h3>
+            <p>Install and repair electrical systems.</p>
+            <div class="stars">★★★★★</div>
+        </div>
+
+        <div class="job" data-category="farm">
+            <h3>Farm Laborer</h3>
+            <p>Assist with planting and harvesting.</p>
+            <div class="stars">★★★☆☆</div>
+        </div>
+
+        <div class="job" data-category="tech">
+            <h3>IT Support</h3>
+            <p>Help users with technical issues.</p>
+            <div class="stars">★★★★☆</div>
+        </div>
+
+        <div class="job" data-category="cleaning">
+            <h3>Janitor</h3>
+            <p>Maintain cleanliness in buildings.</p>
+            <div class="stars">★★★☆☆</div>
+        </div>
+
+        <div class="job" data-category="construction">
+            <h3>Plumber</h3>
+            <p>Install and repair water systems.</p>
+            <div class="stars">★★★★☆</div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<footer>
+    © 2026 Smartville Jobify
+</footer>
+
+<script>
+// SEARCH + FILTER
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
+
+function filterJobs(){
+    let text = searchInput.value.toLowerCase();
+    let category = categoryFilter.value;
+
+    document.querySelectorAll(".job").forEach(job=>{
+        let title = job.querySelector("h3").textContent.toLowerCase();
+        let cat = job.getAttribute("data-category");
+
+        job.style.display = title.includes(text) && (category==="all"||cat===category)
+        ? "block" : "none";
+    });
+}
+
+searchInput.addEventListener("keyup", filterJobs);
+categoryFilter.addEventListener("change", filterJobs);
+
+// HIRING SYSTEM
+function openHire(title, pay, port){
+    document.getElementById("jobTitle").textContent = title;
+    document.getElementById("payment").textContent = pay;
+    document.getElementById("portfolio").textContent = port;
+
+    document.getElementById("emailLink").href = 
+        "mailto:worker@email.com?subject=Hiring "+title;
+
+    document.getElementById("whatsappLink").href = 
+        "https://wa.me/256700000000?text=I want to hire you as "+title;
+
+    document.getElementById("hireBox").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closeHire(){
+    document.getElementById("hireBox").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+</script>
+
+</body>
+</html>

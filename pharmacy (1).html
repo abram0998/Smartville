@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smartville Pharmacy Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+    color:#333;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url('pharmacy-bg.jpg');
+    background-size:cover;
+    background-position:center;
+    height:70vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.hero h1{
+    font-size:3rem;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:1.2rem;
+}
+
+/* NAV */
+nav{
+    background:#2e7d32;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+}
+
+nav a:hover{
+    color:#c8e6c9;
+}
+
+/* CONTAINER */
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:70px 0;
+}
+
+/* TITLE */
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    color:#2e7d32;
+    font-size:2rem;
+}
+
+/* SERVICES */
+.services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.service{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.service:hover{
+    transform:translateY(-8px);
+}
+
+.service img{
+    width:100%;
+    border-radius:10px;
+}
+
+.service h3{
+    margin:10px 0;
+}
+
+/* BUTTON */
+.find-btn{
+    margin-top:10px;
+    display:block;
+    text-align:center;
+    padding:10px;
+    background:#2e7d32;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+/* SEARCH BAR */
+.search-box{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.search-box input{
+    padding:12px;
+    width:60%;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.search-box button{
+    padding:12px 20px;
+    background:#2e7d32;
+    color:white;
+    border:none;
+    border-radius:8px;
+    margin-left:10px;
+    cursor:pointer;
+}
+
+/* FOOTER */
+footer{
+    background:#1b5e20;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Pharmacy Services</h1>
+    <p>Find Medicines & Trusted Pharmacies Near You</p>
+</section>
+
+<!-- NAV -->
+<nav>
+    <a href="health.html">Home</a>
+    <a href="dental.html">Dental</a>
+    <a href="pdriatrics.html">Pediatrics</a>
+    <a href="clinics.html">Clinics</a>
+    <a href="emergency.html">Emergency</a>
+</nav>
+
+<!-- SEARCH -->
+<div class="container">
+    <div class="section-title">
+        <h2>Search for Medicine or Pharmacy</h2>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="e.g. painkillers, antibiotics...">
+        <button onclick="searchMedicine()">Search</button>
+    </div>
+</div>
+
+<!-- SERVICES -->
+<div class="container">
+    <div class="section-title">
+        <h2>Pharmacy Services</h2>
+    </div>
+
+    <div class="services">
+
+        <div class="service">
+            <img src="painkillers.jpg">
+            <h3>Pain Relief Medication</h3>
+            <p>Find pharmacies with painkillers near you</p>
+            <button class="find-btn" onclick="findHospitals('painkillers pharmacy near me')">
+                Find Pharmacy
+            </button>
+        </div>
+
+        <div class="service">
+            <img src="antibiotics.jpg">
+            <h3>Antibiotics</h3>
+            <p>Locate pharmacies offering antibiotics</p>
+            <button class="find-btn" onclick="findHospitals('antibiotics pharmacy near me')">
+                Find Pharmacy
+            </button>
+        </div>
+
+        <div class="service">
+            <img src="firstaid.jpg">
+            <h3>First Aid Supplies</h3>
+            <p>Bandages, antiseptics and emergency kits</p>
+            <button class="find-btn" onclick="findHospitals('first aid pharmacy near me')">
+                Find Pharmacy
+            </button>
+        </div>
+
+        <div class="service">
+            <img src="babycare.jpg">
+            <h3>Baby Care Products</h3>
+            <p>Safe products for infants and children</p>
+            <button class="find-btn" onclick="findHospitals('baby products pharmacy near me')">
+                Find Pharmacy
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    © 2026 Smartville Health Access Platform
+</footer>
+
+<script>
+// SEARCH FUNCTION
+function searchMedicine(){
+    let input = document.getElementById("searchInput").value;
+
+    if(input.trim() === ""){
+        alert("Please enter a medicine or product.");
+        return;
+    }
+
+    findHospitals(input + " pharmacy near me");
+}
+
+// FIND NEARBY USING LOCATION
+function findHospitals(query){
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(position => {
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+
+            let url = `https://www.google.com/maps/search/${encodeURIComponent(query)}/@${lat},${lng},15z`;
+
+            window.open(url, "_blank");
+        });
+    } else {
+        alert("Location access is required.");
+    }
+}
+</script>
+
+</body>
+</html>

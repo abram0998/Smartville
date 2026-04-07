@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fresh Harvest & Seed Marketplace</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f8faf5;
+    }
+
+    header {
+      background: #3b7a3f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    /* Filter bar */
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filters select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Product grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product h3 {
+      margin: 10px 0;
+    }
+
+    .product p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .product button {
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      background: #3b7a3f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .product button:hover {
+      background: #2f6133;
+    }
+
+    /* Cart bubble */
+    #cartCount {
+      background: red;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 50%;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+    nav{
+    background:#222;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#4CAF50;
+}    #cartToggle{
+      background:none;
+      border:2px solid rgba(255,255,255,0.3);
+      padding:8px 14px;
+      border-radius:10px;
+      color:white;
+      cursor:pointer;
+      position:relative;
+    }
+    #cartCount{
+      position:absolute;
+      top:-6px;
+      right:-6px;
+      background:#ff5b5b;
+      padding:2px 6px;
+      border-radius:12px;
+      font-size:13px;
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  🌱 Fresh Harvest & Seed Marketplace  
+  <span id="cartCount">0</span>
+</header>
+<nav>
+   <a href="main.html">Home</a>
+    <a href="crops.html">Crops</a>
+    <a href="livestock.html">Livestock</a>
+    <a href="weather.html">Weather</a>
+
+    <a href="trade.html">Trading</a>
+  
+  
+</nav>
+
+<div class="container">
+
+  <!-- Filters -->
+  <div class="filters">
+    <select id="categoryFilter">
+      <option value="all">All Products</option>
+      <option value="seeds">Seeds</option>
+      <option value="vegetables">Vegetables</option>
+      <option value="fruits">Fruits</option>
+      <option value="grains">Grains</option>
+      <option value="herbs">Herbs</option>
+    </select>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid" id="productGrid"></div>
+</div>
+
+<script>
+  let cart = [];
+  const cartCount = document.getElementById('cartCount');
+  const grid = document.getElementById('productGrid');
+  const filter = document.getElementById('categoryFilter');
+
+  // 40 marketplace items
+  const products = [
+    {name: "Tomato Seeds", category: "seeds", price: 3, img: "https://via.placeholder.com/300?text=Tomato+Seeds"},
+    {name: "Cucumber Seeds", category: "seeds", price: 3, img: "https://via.placeholder.com/300?text=Cucumber+Seeds"},
+    {name: "Carrot Seeds", category: "seeds", price: 2, img: "https://via.placeholder.com/300?text=Carrot+Seeds"},
+    {name: "Spinach Seeds", category: "seeds", price: 2, img: "https://via.placeholder.com/300?text=Spinach+Seeds"},
+    {name: "Lettuce Seeds", category: "seeds", price: 2, img: "https://via.placeholder.com/300?text=Lettuce+Seeds"},
+    {name: "Onion Seeds", category: "seeds", price: 2, img: "https://via.placeholder.com/300?text=Onion+Seeds"},
+    {name: "Watermelon Seeds", category: "seeds", price: 4, img: "https://via.placeholder.com/300?text=Watermelon+Seeds"},
+    {name: "Pumpkin Seeds", category: "seeds", price: 3, img: "https://via.placeholder.com/300?text=Pumpkin+Seeds"},
+    {name: "Corn Seeds", category: "seeds", price: 3, img: "https://via.placeholder.com/300?text=Corn+Seeds"},
+    {name: "Sunflower Seeds", category: "seeds", price: 2, img: "https://via.placeholder.com/300?text=Sunflower+Seeds"},
+
+    // Fresh vegetables
+    {name: "Fresh Tomatoes", category: "vegetables", price: 5, img: "https://via.placeholder.com/300?text=Tomatoes"},
+    {name: "Fresh Cabbage", category: "vegetables", price: 4, img: "https://via.placeholder.com/300?text=Cabbage"},
+    {name: "Fresh Carrots", category: "vegetables", price: 3, img: "https://via.placeholder.com/300?text=Carrots"},
+    {name: "Fresh Spinach", category: "vegetables", price: 4, img: "https://via.placeholder.com/300?text=Spinach"},
+    {name: "Fresh Broccoli", category: "vegetables", price: 6, img: "https://via.placeholder.com/300?text=Broccoli"},
+    {name: "Fresh Peppers", category: "vegetables", price: 5, img: "https://via.placeholder.com/300?text=Peppers"},
+    {name: "Fresh Onions", category: "vegetables", price: 4, img: "https://via.placeholder.com/300?text=Onions"},
+    {name: "Fresh Garlic", category: "vegetables", price: 3, img: "https://via.placeholder.com/300?text=Garlic"},
+    {name: "Fresh Potatoes", category: "vegetables", price: 4, img: "https://via.placeholder.com/300?text=Potatoes"},
+    {name: "Fresh Cucumbers", category: "vegetables", price: 5, img: "https://via.placeholder.com/300?text=Cucumbers"},
+
+    // Fruits
+    {name: "Fresh Apples", category: "fruits", price: 7, img: "https://via.placeholder.com/300?text=Apples"},
+    {name: "Fresh Bananas", category: "fruits", price: 5, img: "https://via.placeholder.com/300?text=Bananas"},
+    {name: "Fresh Mangoes", category: "fruits", price: 10, img: "https://via.placeholder.com/300?text=Mangoes"},
+    {name: "Fresh Grapes", category: "fruits", price: 8, img: "https://via.placeholder.com/300?text=Grapes"},
+    {name: "Fresh Oranges", category: "fruits", price: 6, img: "https://via.placeholder.com/300?text=Oranges"},
+    {name: "Fresh Strawberries", category: "fruits", price: 12, img: "https://via.placeholder.com/300?text=Strawberries"},
+    {name: "Fresh Pineapples", category: "fruits", price: 9, img: "https://via.placeholder.com/300?text=Pineapple"},
+    {name: "Fresh Watermelon", category: "fruits", price: 7, img: "https://via.placeholder.com/300?text=Watermelon"},
+    {name: "Fresh Papaya", category: "fruits", price: 6, img: "https://via.placeholder.com/300?text=Papaya"},
+    {name: "Fresh Lemon", category: "fruits", price: 3, img: "https://via.placeholder.com/300?text=Lemons"},
+
+    // Grains
+    {name: "Rice (1kg)", category: "grains", price: 4, img: "https://via.placeholder.com/300?text=Rice"},
+    {name: "Maize (1kg)", category: "grains", price: 3, img: "https://via.placeholder.com/300?text=Maize"},
+    {name: "Wheat (1kg)", category: "grains", price: 4, img: "https://via.placeholder.com/300?text=Wheat"},
+    {name: "Sorghum (1kg)", category: "grains", price: 3, img: "https://via.placeholder.com/300?text=Sorghum"},
+    {name: "Millet (1kg)", category: "grains", price: 3, img: "https://via.placeholder.com/300?text=Millet"},
+
+    // Herbs
+    {name: "Basil Leaves", category: "herbs", price: 4, img: "https://via.placeholder.com/300?text=Basil"},
+    {name: "Mint Leaves", category: "herbs", price: 4, img: "https://via.placeholder.com/300?text=Mint"},
+    {name: "Coriander", category: "herbs", price: 3, img: "https://via.placeholder.com/300?text=Coriander"},
+    {name: "Parsley", category: "herbs", price: 3, img: "https://via.placeholder.com/300?text=Parsley"},
+    {name: "Thyme", category: "herbs", price: 5, img: "https://via.placeholder.com/300?text=Thyme"},
+  ];
+
+  // Render products
+  function displayProducts(list) {
+    grid.innerHTML = "";
+    list.forEach(p => {
+      grid.innerHTML += `
+        <div class="product">
+          <img src="${p.img}">
+          <h3>${p.name}</h3>
+          <p>Category: ${p.category}</p>
+          <p><strong>$${p.price}</strong></p>
+          <button onclick='addToCart("${p.name}")'>Add to Cart</button>
+        </div>
+      `;
+    });
+  }
+
+  // Add to cart
+  function addToCart(name) {
+    cart.push(name);
+    cartCount.textContent = cart.length;
+  }
+
+  // Filter products
+  filter.addEventListener("change", () => {
+    const value = filter.value;
+    if (value === "all") {
+      displayProducts(products);
+    } else {
+      displayProducts(products.filter(p => p.category === value));
+    }
+  });
+
+  // Initial load
+  displayProducts(products);
+</script>
+
+</body>
+</html>

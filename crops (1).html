@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uganda Crops – Live Market Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#f4f9f4,#e8f5e9);
+  padding:20px;
+  animation:fadeIn 0.8s ease;
+}
+
+header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+header h1{
+  color:#1b5e20;
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.search-box{
+  max-width:400px;
+  margin:15px auto;
+}
+
+.search-box input{
+  width:100%;
+  padding:12px;
+  border-radius:30px;
+  border:1px solid #ccc;
+  outline:none;
+  transition:0.3s;
+}
+
+.search-box input:focus{
+  border-color:#2e7d32;
+  box-shadow:0 0 8px rgba(46,125,50,0.3);
+}
+
+.table-container{
+  overflow-x:auto;
+  background:white;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
+
+th, td{
+  padding:15px;
+  text-align:left;
+}
+
+th{
+  background:#2e7d32;
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+tr:nth-child(even){
+  background:#f4f9f4;
+}
+
+tr:hover{
+  background:#e8f5e9;
+  transition:0.3s;
+}
+
+.updated{
+  background:#fff9c4 !important;
+  transition:background 0.5s ease;
+}
+
+.note{
+  margin-top:30px;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.note strong{
+  color:#1b5e20;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:768px){
+  header h1{font-size:22px;}
+}
+nav{
+    background:#222;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#4CAF50;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Major Crops in Uganda: Prices, Seasons & Growing Areas</h1>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search crop name...">
+  </div>
+</header>
+<nav>
+    <a href="main.html">Home</a>
+    <a href="livestock.html">Livestock</a>
+    <a href="weather.html">Weather</a>
+    <a href="trade.html">Trading</a>
+    <a href="ai.html">AI Guide</a>
+</nav>
+
+<div class="table-container">
+<table id="cropTable">
+<thead>
+<tr>
+<th>Crop</th>
+<th>Typical Price (UGX / kg)</th>
+<th>Growing Seasons</th>
+<th>Main Growing Regions</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>Maize</td>
+<td id="price-maize">~ 1,300 UGX/kg (farmgate)</td>
+<td>1st season (Mar–Aug), 2nd season (Aug–Dec)</td>
+<td>Nationwide, especially in central & eastern regions</td>
+</tr>
+
+<tr>
+<td>Beans (Dry: Nambaale, Masavu, Yellow)</td>
+<td id="price-beans">3,500–4,800 UGX/kg (farmgate)</td>
+<td>1st & 2nd seasons (intercropped with maize often)</td>
+<td>Western & Central Uganda</td>
+</tr>
+
+<tr>
+<td>Cassava (Chips)</td>
+<td id="price-cassava">450–500 UGX/kg</td>
+<td>2 seasons — similar planting calendar as other staples</td>
+<td>Nationwide; especially in eastern Uganda</td>
+</tr>
+
+<tr>
+<td>Banana (Matooke)</td>
+<td id="price-banana">~ 1,200 UGX/kg (during festive season)</td>
+<td>Perennial (plantains / matooke grown year-round; food banana)</td>
+<td>Western and Central Uganda</td>
+</tr>
+
+<tr>
+<td>Sorghum</td>
+<td id="price-sorghum">1,500–1,800 UGX/kg</td>
+<td>1st & 2nd season</td>
+<td>Some production in northern and northeastern Uganda</td>
+</tr>
+
+<tr>
+<td>Millet</td>
+<td id="price-millet">2,900–3,500 UGX/kg</td>
+<td>1st & 2nd seasons</td>
+<td>Scattered in drier or semi-arid zones</td>
+</tr>
+
+<tr>
+<td>Rice (Paddy)</td>
+<td id="price-rice">2,800–4,500 UGX/kg (super / Pakistan rice)</td>
+<td>1st & 2nd season</td>
+<td>Irrigated areas, lowland rice zones</td>
+</tr>
+
+<tr>
+<td>Groundnuts</td>
+<td id="price-groundnuts">5,000–5,500 UGX/kg (Red)</td>
+<td>1st & 2nd season</td>
+<td>Various regions — smallholder production widespread</td>
+</tr>
+
+<tr>
+<td>Sim Sim (Sesame)</td>
+<td id="price-simsim">4,800–5,300 UGX/kg</td>
+<td>1st & 2nd season</td>
+<td>Some production zones; oilseed farmers</td>
+</tr>
+
+<tr>
+<td>Sweet Potatoes</td>
+<td id="price-sweetpotatoes">~100,000–150,000 UGX per bag</td>
+<td>1st & 2nd season</td>
+<td>Many regions; root crop farmers</td>
+</tr>
+
+<tr>
+<td>Irish Potatoes</td>
+<td id="price-irishpotatoes">100,000–250,000 UGX per bag</td>
+<td>1st & 2nd season</td>
+<td>Highland / cool zones (e.g. western Uganda)</td>
+</tr>
+
+<tr>
+<td>Coffee (Robusta & Arabica)</td>
+<td id="price-coffee">~14,000 UGX/kg (average)</td>
+<td>Perennial / permanent crop</td>
+<td>Central, East, West highlands</td>
+</tr>
+
+<tr>
+<td>Vanilla</td>
+<td id="price-vanilla">5,000–6,000 UGX/kg</td>
+<td>Perennial (vanilla vines)</td>
+<td>Emerging in different regions</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<p><strong>Notes / Caveats:</strong></p>
+<ul>
+<li>Prices are approximate and vary by region, market, season, and quality.</li>
+<li>Seasons follow Uganda’s long rainy (Mar–Aug) and short rainy (Aug–Dec) cycles.</li>
+<li>Growing areas are generalized.</li>
+<li>Some crops (like vanilla) are emerging cash crops.</li>
+</ul>
+</div>
+
+<script>
+/* SEARCH FUNCTION */
+document.getElementById("searchInput").addEventListener("keyup", function() {
+  let filter = this.value.toLowerCase();
+  let rows = document.querySelectorAll("#cropTable tbody tr");
+  rows.forEach(row => {
+    let crop = row.cells[0].textContent.toLowerCase();
+    row.style.display = crop.includes(filter) ? "" : "none";
+  });
+});
+
+/* STORE PREVIOUS PRICES */
+let previousPrices = {};
+
+/* LIVE PRICE SIMULATION */
+function fetchLivePrices() {
+
+  const liveData = {
+    maize: 1350,
+    beans: 4700,
+    cassava: 500,
+    banana: 1250,
+    sorghum: 1700,
+    millet: 3200,
+    rice: 4200,
+    groundnuts: 5500,
+    simsim: 5200,
+    sweetpotatoes: 140000,
+    irishpotatoes: 230000,
+    coffee: 14000,
+    vanilla: 6000
+  };
+
+  for (const crop in liveData) {
+
+    const cell = document.getElementById("price-" + crop);
+    if (!cell) continue;
+
+    const newPrice = liveData[crop];
+    const oldPrice = previousPrices[crop];
+
+    let arrow = "";
+    let color = "";
+
+    if (oldPrice !== undefined) {
+      if (newPrice > oldPrice) {
+        arrow = " ⬆️";
+        color = "green";
+      } else if (newPrice < oldPrice) {
+        arrow = " ⬇️";
+        color = "red";
+      } else {
+        arrow = " ➖";
+        color = "gray";
+      }
+    }
+
+    cell.innerHTML =
+      newPrice.toLocaleString() +
+      " UGX/kg <span style='color:" + color + ";font-weight:600'>" +
+      arrow +
+      "</span>";
+
+    cell.classList.add("updated");
+    setTimeout(() => cell.classList.remove("updated"), 2000);
+
+    previousPrices[crop] = newPrice;
+  }
+}
+
+/* INITIAL LOAD */
+fetchLivePrices();
+
+/* UPDATE EVERY 30 SECONDS */
+setInterval(() => {
+  for (let key in previousPrices) {
+    previousPrices[key] += Math.floor(Math.random() * 200 - 100);
+  }
+  fetchLivePrices();
+}, 30000);
+
+</script>
+
+</body>
+</html>

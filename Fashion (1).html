@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smartville Fashion Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #fffafc; color: #333; }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('f.webp');
+            background-size: cover;
+            background-position: center;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        /* NAV */
+        nav {
+            background: #880e4f;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+        }
+        nav a, #search, #cartToggle {
+            color: white;
+            text-decoration: none;
+            margin: 10px 15px;
+        }
+        nav a:hover, #search:hover, #cartToggle:hover {
+            color: #ff80ab;
+        }
+        #search {
+            padding: 8px;
+            width: 250px;
+            border-radius: 8px;
+        }
+
+        /* NAV DROPDOWN */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1;
+            border-radius: 10px;
+            min-width: 160px;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content div {
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            color: #333;
+            cursor: pointer;
+        }
+        .dropdown-content div:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* CONTAINER */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            color: #c2185b;
+        }
+
+        .categories, .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .category, .product {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+            text-align: center;
+        }
+        .category:hover, .product:hover {
+            transform: translateY(-10px);
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .price {
+            color: #c2185b;
+            font-weight: bold;
+        }
+
+        .buy-btn {
+            margin-top: 10px;
+            display: block;
+            padding: 10px;
+            background: #c2185b;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        footer {
+            background: #4a004e;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* CART TOGGLE */
+        #cartToggle {
+            background: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+        }
+        #cartCount {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff5b5b;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 13px;
+            display: none;
+        }
+
+        /* HOME BUTTON */
+        .home-btn {
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ff80ab;
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero" id="home">
+    <h1>Smartville Fashion</h1>
+    <p>Trendy Styles, Affordable Prices</p>
+</section>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="broad marketplace.html" class="home-btn">🏠 Home</a>
+    <div class="dropdown">
+        <a href="#">Categories</a>
+        <div class="dropdown-content">
+            <div onclick="filterProducts('mens')">Men's Wear</div>
+            <div onclick="filterProducts('womens')">Women's Wear</div>
+            <div onclick="filterProducts('shoes')">Shoes</div>
+            <div onclick="filterProducts('bags')">Bags</div>
+            <div onclick="filterProducts('accessories')">Accessories</div>
+        </div>
+    </div>
+    <input type="text" id="search" placeholder="Search for items...">
+    <button id="cartToggle">Cart <span id="cartCount">0</span></button>
+</nav>
+
+<div class="container">
+    <div class="section-title"><h2>Categories</h2></div>
+    <div class="categories">
+        <div class="category" onclick="filterProducts('mens')"><h4>Men's Wear</h4></div>
+        <div class="category" onclick="filterProducts('womens')"><h4>Women's Wear</h4></div>
+        <div class="category" onclick="filterProducts('shoes')"><h4>Shoes</h4></div>
+        <div class="category" onclick="filterProducts('bags')"><h4>Bags</h4></div>
+        <div class="category" onclick="filterProducts('accessories')"><h4>Accessories</h4></div>
+    </div>
+</div>
+
+<div class="container" id="productsContainer">
+    <div class="section-title"><h2>Trending Items</h2></div>
+    <div class="products" id="productList"></div>
+</div>
+
+<!-- CART -->
+<div id="cartBox" style="position:fixed;right:20px;bottom:20px;background:white;padding:20px;width:300px;box-shadow:0 10px 30px rgba(0,0,0,0.2);border-radius:15px;display:none;z-index:999;">
+<h3>Your Cart</h3>
+<div id="cartItems"></div>
+<p><strong>Total: </strong><span id="cartTotal">UGX 0</span></p>
+<h4>Payment Method</h4>
+<select id="paymentMethod" style="width:100%;padding:8px;margin-top:10px;">
+    <option value="">-- Choose Method --</option>
+    <option value="mtn">MTN Mobile Money</option>
+    <option value="airtel">Airtel Money</option>
+    <option value="cod">Cash on Delivery</option>
+</select>
+<input type="text" id="phoneNumber" placeholder="Enter phone number" style="width:100%;padding:8px;margin-top:10px;display:none;">
+<button onclick="checkout()" style="margin-top:15px;width:100%;padding:10px;background:#880e4f;color:white;border:none;border-radius:8px;">Checkout</button>
+<button onclick="clearCart()" style="margin-top:10px;">Clear</button>
+</div>
+
+<footer>© 2026 Smartville Fashion</footer>
+
+<script>
+// CART DATA
+let cart = [];
+const cartBox = document.getElementById("cartBox");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const cartCount = document.getElementById("cartCount");
+
+// ADD TO CART
+function addToCart(name, price) {
+    let item = cart.find(p => p.name === name);
+    if(item) {
+        item.qty++;
+    } else {
+        cart.push({ name, price, qty: 1 });
+    }
+    updateCart();
+}
+
+// UPDATE UI
+function updateCart() {
+    cartItems.innerHTML = "";
+    let total = 0;
+    let count = 0;
+    cart.forEach(item => {
+        total += item.price * item.qty;
+        count += item.qty;
+        cartItems.innerHTML += `<div><strong>${item.name}</strong><br>${item.qty} x UGX ${item.price.toLocaleString()}</div>`;
+    });
+    cartTotal.textContent = "UGX " + total.toLocaleString();
+    cartCount.textContent = count;
+    cartCount.style.display = count > 0 ? "inline-block" : "none";
+}
+
+// CLEAR CART
+function clearCart() {
+    cart = [];
+    updateCart();
+}
+
+// TOGGLE CART
+document.getElementById("cartToggle").onclick = () => {
+    cartBox.style.display = cartBox.style.display === "none" ? "block" : "none";
+};
+
+// FILTER PRODUCTS BASED ON CATEGORY
+function filterProducts(category) {
+    const productList = document.getElementById('productList');
+    let products = [];
+
+    // Dummy data for the categories (replace this with your actual data)
+    if (category === 'mens') {
+        products = [
+            {name: 'Men\'s T-Shirt', price: 25000, img: 'Tshirt.jpg'},
+            {name: 'Men\'s Jeans', price: 45000, img: 'Jeans.jpg'}
+        ];
+    } else if (category === 'womens') {
+        products = [
+            {name: 'Women\'s Dress', price: 60000, img: 'Dress.jpg'},
+            {name: 'Women\'s Skirt', price: 35000, img: 'Skirt.jpg'}
+        ];
+    } else if (category === 'shoes') {
+        products = [
+            {name: 'Stylish Sneakers', price: 80000, img: 'Sneakers.jpg'},
+            {name: 'Leather Shoes', price: 90000, img: 'LeatherShoes.jpg'}
+        ];
+    } else if (category === 'bags') {
+        products = [
+            {name: 'Leather Handbag', price: 70000, img: 'Handbag.jpg'},
+            {name: 'Clutch Bag', price: 25000, img: 'Clutch.jpg'}
+        ];
+    } else if (category === 'accessories') {
+        products = [
+            {name: 'Watch', price: 30000, img: 'Watch.jpg'},
+            {name: 'Sunglasses', price: 25000, img: 'Sunglasses.jpg'}
+        ];
+    }
+
+    productList.innerHTML = '';
+    products.forEach((product) => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+        productDiv.innerHTML = `
+            <img src="${product.img}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p class="price">UGX ${product.price}</p>
+            <a href="#" class="buy-btn" onclick="addToCart('${product.name}',${product.price})">Add to cart</a>
+        `;
+        productList.appendChild(productDiv);
+    });
+}
+</script>
+
+</body>
+</html>

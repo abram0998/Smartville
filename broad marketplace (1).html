@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smartville Marketplace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f5f7f6;
+    color:#333;
+}
+
+/* HERO */
+header{
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('p.jpg');
+    background-size:cover;
+    background-position:center;
+    height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    padding:20px;
+}
+
+header h1{
+    font-size:3rem;
+}
+
+/* NAV */
+nav{
+    background:#222;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+}
+
+nav a:hover{
+    color:#4CAF50;
+}
+
+/* SECTION */
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:60px 0;
+}
+
+/* TITLES */
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    color:#2E7D32;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+/* CARD */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.4s;
+
+    /* animation start */
+    opacity:0;
+    transform:translateY(40px);
+}
+
+.card.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+/* CATEGORY COLORS */
+.agri{border-top:5px solid #4CAF50;}
+.tech{border-top:5px solid #2196F3;}
+.transport{border-top:5px solid #ff5722;}
+.food{border-top:5px solid #FF9800;}
+.hygiene{border-top:5px solid #9C27B0;}
+.fashion{border-top:5px solid #E91E63;}
+.health{border-top:5px solid #03A9F4;}
+.job{border-top:5px solid #795548;}
+
+/* TRANSPORT TABS */
+.tabs{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.tab-btn{
+    padding:10px 20px;
+    margin:5px;
+    border:none;
+    background:#ddd;
+    cursor:pointer;
+    border-radius:20px;
+}
+
+.tab-btn.active{
+    background:#ff5722;
+    color:white;
+}
+
+.tab-content{
+    display:none;
+}
+
+.tab-content.active{
+    display:grid;
+}
+
+/* FOOTER */
+footer{
+    background:#11377e;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<header>
+    <h1>Smartville</h1>
+    <p>The whole village at your fingertips.</p>
+</header>
+
+<!-- NAV -->
+<nav>
+    <a href="main1.html">Back</a>
+    <a href="main.html">Agriculture</a>
+    <a href="tech.html">Technology</a>
+    <a href="transport.html">Transport</a>
+    <a href="foodstuffs.html">Foodstuffs</a>
+    <a href="hygiene.html">Hygiene</a>
+    <a href="fashion.html">Fashion</a>
+    <a href="health.html">Health</a>
+    <a href="jobify.html">Jobify</a>
+    <a href="registration.html">Register</a>
+    <a href="login.html">Login</a>
+</nav>
+
+<!-- AGRICULTURE -->
+<section class="container">
+<div class="section-title"><h2>🌱 Agriculture</h2></div>
+<div class="grid">
+<div class="card agri"><h3>Crop Farming</h3><p>Improved seeds and modern farming.</p></div>
+<div class="card agri"><h3>Livestock</h3><p>Dairy, poultry, and animal care.</p></div>
+<div class="card agri"><h3>Irrigation</h3><p>Smart water systems.</p></div>
+</div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="container">
+<div class="section-title"><h2>💻 Technology</h2></div>
+<div class="grid">
+<div class="card tech"><h3>Market Prices</h3><p>Live pricing updates.</p></div>
+<div class="card tech"><h3>Weather</h3><p>Forecast for farmers.</p></div>
+</div>
+</section>
+
+<!-- TRANSPORT -->
+<section class="container">
+<div class="section-title"><h2>🚗 Transport</h2></div>
+
+<div class="tabs">
+<button class="tab-btn active" onclick="openTab(event,'boda')">Boda</button>
+<button class="tab-btn" onclick="openTab(event,'taxi')">Taxi</button>
+<button class="tab-btn" onclick="openTab(event,'delivery')">Delivery</button>
+<button class="tab-btn" onclick="openTab(event,'truck')">Truck</button>
+</div>
+
+<div id="boda" class="grid tab-content active">
+<div class="card transport"><h3>Quick Boda</h3><p>Fast local rides.</p></div>
+<div class="card transport"><h3>Safe Ride</h3><p>Verified riders.</p></div>
+</div>
+
+<div id="taxi" class="grid tab-content">
+<div class="card transport"><h3>City Taxi</h3><p>Comfort travel.</p></div>
+<div class="card transport"><h3>Private Hire</h3><p>Book anytime.</p></div>
+</div>
+
+<div id="delivery" class="grid tab-content">
+<div class="card transport"><h3>Parcel Delivery</h3><p>Fast & secure.</p></div>
+<div class="card transport"><h3>Food Delivery</h3><p>Hot meals.</p></div>
+</div>
+
+<div id="truck" class="grid tab-content">
+<div class="card transport"><h3>Cargo Truck</h3><p>Heavy transport.</p></div>
+<div class="card transport"><h3>Moving Service</h3><p>Relocation help.</p></div>
+</div>
+
+</section>
+
+<!-- FOOD -->
+<section class="container">
+<div class="section-title"><h2>🍎 Foodstuffs</h2></div>
+<div class="grid">
+<div class="card food"><h3>Fresh Produce</h3><p>Fruits & vegetables.</p></div>
+<div class="card food"><h3>Grains</h3><p>Maize, beans, rice.</p></div>
+<div class="card food"><h3>Processed</h3><p>Ready-to-use foods.</p></div>
+</div>
+</section>
+
+<!-- HYGIENE -->
+<section class="container">
+<div class="section-title"><h2>🧼 Hygiene</h2></div>
+<div class="grid">
+<div class="card hygiene"><h3>Cleaning</h3><p>Detergents & tools.</p></div>
+<div class="card hygiene"><h3>Personal Care</h3><p>Soap & sanitizers.</p></div>
+<div class="card hygiene"><h3>Sanitation</h3><p>Clean environments.</p></div>
+</div>
+</section>
+
+<!-- FASHION -->
+<section class="container">
+<div class="section-title"><h2>👕 Fashion</h2></div>
+<div class="grid">
+<div class="card fashion"><h3>Clothing</h3><p>Modern outfits.</p></div>
+<div class="card fashion"><h3>Shoes</h3><p>Quality footwear.</p></div>
+<div class="card fashion"><h3>Accessories</h3><p>Bags & more.</p></div>
+</div>
+</section>
+
+<!-- HEALTH -->
+<section class="container">
+<div class="section-title"><h2>🏥 Health</h2></div>
+<div class="grid">
+<div class="card health"><h3>Medicines</h3><p>Basic treatments.</p></div>
+<div class="card health"><h3>Clinics</h3><p>Nearby health services.</p></div>
+<div class="card health"><h3>Wellness</h3><p>Healthy living tips.</p></div>
+</div>
+</section>
+
+<!-- JOBIFY -->
+<section class="container">
+<div class="section-title"><h2>💼 Jobify</h2></div>
+<div class="grid">
+<div class="card job"><h3>Jobs</h3><p>Find opportunities.</p></div>
+<div class="card job"><h3>Post Jobs</h3><p>Hire workers.</p></div>
+<div class="card job"><h3>Skills</h3><p>Learn & grow.</p></div>
+</div>
+</section>
+
+<footer>
+© 2026 Smartville | All Rights Reserved
+</footer>
+
+<script>
+// SCROLL ANIMATION
+const cards = document.querySelectorAll('.card');
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('show');
+}
+});
+},{threshold:0.2});
+
+cards.forEach(card=>observer.observe(card));
+
+// TRANSPORT TABS
+function openTab(evt, tabName){
+document.querySelectorAll('.tab-content').forEach(tab=>{
+tab.classList.remove('active');
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+btn.classList.remove('active');
+});
+
+document.getElementById(tabName).classList.add('active');
+evt.currentTarget.classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livestock Marketplace (UGX)</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f6f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #345e37;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    h2 {
+      color: #345e37;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .filters input,
+    .filters select {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .item-card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .item-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .item-card h3 {
+      margin: 10px 0 5px;
+      color: #234423;
+    }
+
+    .item-card p {
+      margin: 5px 0;
+      color: #444;
+      font-size: 14px;
+    }
+
+    .item-card button {
+      background: #345e37;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .item-card button:hover {
+      background: #234423;
+    }
+    nav{
+    background:#222;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:10px 15px;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#4CAF50;
+}
+  </style>
+</head>
+
+<body>
+
+<header>🐄 Livestock Marketplace – Prices in UGX</header>
+<nav>
+    <a href="crops.html">Crops</a>
+    <a href="weather.html">Weather</a>
+    <a href="trade.html">Trading</a>
+    <a href="main.html">Home</a>
+    <a href="ai.html">AI Guide</a>
+    <a href="registration.html">Seller Sign Up</a>
+    <a href="log in.html">Log In</a>
+</nav>
+
+<div class="container">
+
+  <div class="filters">
+    <input type="text" id="search" placeholder="Search livestock or products...">
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="livestock">Livestock</option>
+      <option value="products">Livestock Products</option>
+    </select>
+  </div>
+
+  <h2>🐐 Livestock for Sale (UGX)</h2>
+  <div class="grid" id="livestockGrid"></div>
+
+  <h2>🥩 Livestock Products (UGX)</h2>
+  <div class="grid" id="productGrid"></div>
+
+</div>
+
+<script>
+const livestock = [
+  {name: "Dairy Cow", price: 1800000, location: "Mbarara", img: "https://via.placeholder.com/300?text=Dairy+Cow"},
+  {name: "Beef Cow", price: 1500000, location: "Gulu", img: "https://via.placeholder.com/300?text=Beef+Cow"},
+  {name: "Boer Goat", price: 300000, location: "Masaka", img: "https://via.placeholder.com/300?text=Boer+Goat"},
+  {name: "Local Goat", price: 150000, location: "Jinja", img: "https://via.placeholder.com/300?text=Local+Goat"},
+  {name: "Dorper Sheep", price: 250000, location: "Soroti", img: "https://via.placeholder.com/300?text=Dorper+Sheep"},
+  {name: "Merino Sheep", price: 220000, location: "Mbale", img: "https://via.placeholder.com/300?text=Merino+Sheep"},
+  {name: "Camel", price: 3200000, location: "Moroto", img: "https://via.placeholder.com/300?text=Camel"},
+  {name: "Chicken Layers", price: 25000, location: "Kampala", img: "https://via.placeholder.com/300?text=Layers"},
+  {name: "Chicken Broilers", price: 18000, location: "Entebbe", img: "https://via.placeholder.com/300?text=Broilers"},
+  {name: "Turkey", price: 70000, location: "Mukono", img: "https://via.placeholder.com/300?text=Turkey"},
+  {name: "Rabbit", price: 35000, location: "Lira", img: "https://via.placeholder.com/300?text=Rabbit"},
+  {name: "Pig", price: 300000, location: "Fort Portal", img: "https://via.placeholder.com/300?text=Pig"},
+  {name: "Duck", price: 30000, location: "Kampala", img: "https://via.placeholder.com/300?text=Duck"},
+  {name: "Tilapia Fish", price: 15000, location: "Jinja", img: "https://via.placeholder.com/300?text=Tilapia"},
+  {name: "Catfish", price: 18000, location: "Jinja", img: "https://via.placeholder.com/300?text=Catfish"},
+  {name: "Donkey", price: 600000, location: "Karamoja", img: "https://via.placeholder.com/300?text=Donkey"},
+  {name: "Quail", price: 20000, location: "Kampala", img: "https://via.placeholder.com/300?text=Quail"},
+  {name: "Bee Colony", price: 350000, location: "Bushenyi", img: "https://via.placeholder.com/300?text=Bee+Colony"},
+  {name: "Young Calf", price: 800000, location: "Mbarara", img: "https://via.placeholder.com/300?text=Calf"},
+  {name: "Bull", price: 2500000, location: "Gulu", img: "https://via.placeholder.com/300?text=Bull"}
+];
+
+const products = [
+  {name: "Fresh Milk (1L)", price: 3000, location: "Mbarara", img: "https://via.placeholder.com/300?text=Milk"},
+  {name: "Beef (1kg)", price: 18000, location: "Kampala", img: "https://via.placeholder.com/300?text=Beef"},
+  {name: "Goat Meat (1kg)", price: 20000, location: "Masaka", img: "https://via.placeholder.com/300?text=Goat+Meat"},
+  {name: "Chicken Meat (1kg)", price: 15000, location: "Kampala", img: "https://via.placeholder.com/300?text=Chicken"},
+  {name: "Eggs (Tray)", price: 12000, location: "Jinja", img: "https://via.placeholder.com/300?text=Eggs"},
+  {name: "Honey (1kg)", price: 20000, location: "Bushenyi", img: "https://via.placeholder.com/300?text=Honey"},
+  {name: "Cheese (500g)", price: 15000, location: "Kampala", img: "https://via.placeholder.com/300?text=Cheese"},
+  {name: "Yogurt (1L)", price: 5000, location: "Mukono", img: "https://via.placeholder.com/300?text=Yogurt"},
+  {name: "Ghee (500g)", price: 18000, location: "Mbarara", img: "https://via.placeholder.com/300?text=Ghee"},
+  {name: "Animal Feed (25kg)", price: 45000, location: "Lira", img: "https://via.placeholder.com/300?text=Feed"},
+  {name: "Cow Manure (50kg)", price: 10000, location: "Masindi", img: "https://via.placeholder.com/300?text=Manure"},
+  {name: "Goat Manure (50kg)", price: 8000, location: "Mbale", img: "https://via.placeholder.com/300?text=Goat+Manure"},
+  {name: "Leather Hide", price: 70000, location: "Karamoja", img: "https://via.placeholder.com/300?text=Hide"},
+  {name: "Wool (1kg)", price: 25000, location: "Kabale", img: "https://via.placeholder.com/300?text=Wool"},
+  {name: "Camel Milk (1L)", price: 6000, location: "Moroto", img: "https://via.placeholder.com/300?text=Camel+Milk"},
+  {name: "Pork (1kg)", price: 16000, location: "Kampala", img: "https://via.placeholder.com/300?text=Pork"},
+  {name: "Quail Eggs (Pack)", price: 9000, location: "Kampala", img: "https://via.placeholder.com/300?text=Quail+Eggs"},
+  {name: "Duck Meat (1kg)", price: 17000, location: "Entebbe", img: "https://via.placeholder.com/300?text=Duck"},
+  {name: "Fish Fillet (1kg)", price: 22000, location: "Jinja", img: "https://via.placeholder.com/300?text=Fish+Fillet"},
+  {name: "Raw Beeswax (1kg)", price: 25000, location: "Bushenyi", img: "https://via.placeholder.com/300?text=Beeswax"}
+];
+
+function render(container, list) {
+  container.innerHTML = "";
+  list.forEach(item => {
+    container.innerHTML += `
+      <div class="item-card">
+        <img src="${item.img}">
+        <h3>${item.name}</h3>
+        <p><strong>Price:</strong> UGX ${item.price.toLocaleString()}</p>
+        <p><strong>Location:</strong> ${item.location}</p>
+        <button>Contact Seller</button>
+      </div>`;
+  });
+}
+
+render(document.getElementById("livestockGrid"), livestock);
+render(document.getElementById("productGrid"), products);
+
+document.getElementById("search").addEventListener("input", filter);
+document.getElementById("categoryFilter").addEventListener("change", filter);
+
+function filter() {
+  const search = document.getElementById("search").value.toLowerCase();
+  const category = document.getElementById("categoryFilter").value;
+
+  let filteredL = livestock.filter(i => i.name.toLowerCase().includes(search));
+  let filteredP = products.filter(i => i.name.toLowerCase().includes(search));
+
+  if (category === "livestock") filteredP = [];
+  if (category === "products") filteredL = [];
+
+  render(document.getElementById("livestockGrid"), filteredL);
+  render(document.getElementById("productGrid"), filteredP);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smartville Jobify</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f8fb;
+    color:#333;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url('OIP (3).webp');
+    background-size:cover;
+    background-position:center;
+    height:65vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
+    text-align:center;
+}
+
+/* NAV */
+nav{
+    background:#2e7d32;
+    padding:15px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    margin:10px;
+    text-decoration:none;
+}
+
+/* SEARCH */
+.search-box{
+    width:90%;
+    max-width:900px;
+    margin:20px auto;
+    display:flex;
+    gap:10px;
+}
+
+.search-box input, .search-box select{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    flex:1;
+}
+
+/* FORM */
+.form-container{
+    width:90%;
+    max-width:800px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.form-container input, .form-container textarea, .form-container select{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.form-container button{
+    background:#2e7d32;
+    color:white;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* JOBS */
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.jobs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.job{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* RATING */
+.stars span{
+    font-size:20px;
+    cursor:pointer;
+    color:#ccc;
+}
+
+.stars span.active{
+    color:gold;
+}
+
+/* FOOTER */
+footer{
+    background:#1b5e20;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Smartville Jobify</h1>
+    <p>Hire Fast. Work Smart.</p>
+</section>
+
+<nav>
+    <a href="jobify.html">Home</a>
+</nav>
+
+<!-- SEARCH -->
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search jobs...">
+    <select id="categoryFilter">
+        <option value="all">All</option>
+        <option value="farm">Farming</option>
+        <option value="tech">Technology</option>
+        <option value="cleaning">Cleaning</option>
+        <option value="construction">Construction</option>
+    </select>
+</div>
+
+<!-- JOB FORM -->
+<div class="form-container">
+    <h2>Post a Job</h2>
+
+    <input type="text" id="jobTitle" placeholder="Job Title">
+    <textarea id="jobDesc" placeholder="Job Description"></textarea>
+
+    <select id="jobCategory">
+        <option value="farm">Farming</option>
+        <option value="tech">Technology</option>
+        <option value="cleaning">Cleaning</option>
+        <option value="construction">Construction</option>
+    </select>
+
+    <button onclick="postJob()">Post Job</button>
+</div>
+
+<!-- CV UPLOAD -->
+<div class="form-container">
+    <h2>Upload Your CV</h2>
+    <input type="file" id="cvFile">
+    <button onclick="uploadCV()">Upload CV</button>
+</div>
+
+<!-- JOB LIST -->
+<div class="container">
+    <div class="jobs" id="jobList"></div>
+</div>
+
+<footer>
+    © 2026 Smartville Jobify
+</footer>
+
+<script>
+let jobsData = [];
+
+// POST JOB
+function postJob(){
+    let title = document.getElementById("jobTitle").value;
+    let desc = document.getElementById("jobDesc").value;
+    let category = document.getElementById("jobCategory").value;
+
+    if(title === "" || desc === ""){
+        alert("Fill all fields");
+        return;
+    }
+
+    jobsData.push({title, desc, category, rating:0});
+    renderJobs();
+}
+
+// RENDER JOBS
+function renderJobs(){
+    let jobList = document.getElementById("jobList");
+    jobList.innerHTML = "";
+
+    jobsData.forEach((job, index) => {
+        jobList.innerHTML += `
+        <div class="job" data-category="${job.category}">
+            <h3>${job.title}</h3>
+            <p>${job.desc}</p>
+
+            <div class="stars">
+                ${[1,2,3,4,5].map(i => `
+                <span onclick="rate(${index}, ${i})" class="${i <= job.rating ? 'active' : ''}">★</span>
+                `).join("")}
+            </div>
+        </div>
+        `;
+    });
+}
+
+// RATING
+function rate(index, value){
+    jobsData[index].rating = value;
+    renderJobs();
+}
+
+// SEARCH + FILTER
+document.getElementById("searchInput").addEventListener("keyup", filterJobs);
+document.getElementById("categoryFilter").addEventListener("change", filterJobs);
+
+function filterJobs(){
+    let text = document.getElementById("searchInput").value.toLowerCase();
+    let category = document.getElementById("categoryFilter").value;
+
+    let jobCards = document.querySelectorAll(".job");
+
+    jobCards.forEach(job => {
+        let title = job.querySelector("h3").textContent.toLowerCase();
+        let cat = job.getAttribute("data-category");
+
+        let show = title.includes(text) && (category === "all" || category === cat);
+        job.style.display = show ? "block" : "none";
+    });
+}
+
+// CV UPLOAD (SIMULATED)
+function uploadCV(){
+    let file = document.getElementById("cvFile").files[0];
+
+    if(!file){
+        alert("Please select a file");
+        return;
+    }
+
+    alert("CV uploaded successfully: " + file.name);
+}
+</script>
+
+</body>
+</html>
